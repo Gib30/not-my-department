@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Not My Department</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <!-- UI Overlay -->
+  <div id="ui">
+    <div id="death-counter">Deaths: 0</div>
+    <div id="zone-label"></div>
+  </div>
+
+  <!-- Toasts & Banners (hidden by default) -->
+  <div id="checkpoint-toast" class="toast hidden">CHECKPOINT SAVED ✓</div>
+  <div id="fake-banner" class="banner hidden">
+    <h1>LEVEL COMPLETE 🎉</h1>
+    <button id="claim-btn">CLAIM REWARD</button>
+  </div>
+
+  <!-- Pause Menu -->
+  <div id="pause-menu" class="hidden">
+    <h2>PAUSED</h2>
+    <button id="resume-btn">Resume</button>
+  </div>
+
+  <!-- Win Screen -->
+  <div id="win-screen" class="hidden">
+    <h1>"Finally. I'm 3 hours late."</h1>
+    <p id="win-deaths"></p>
+    <button id="share-btn">Share your suffering</button>
+  </div>
+
+  <!-- Dialogue Bubble -->
+  <div id="dialogue" class="hidden"></div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
