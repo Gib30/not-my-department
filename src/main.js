@@ -135,7 +135,7 @@ document.getElementById('claim-btn').addEventListener('click', () => {
 });
 
 document.getElementById('share-btn').addEventListener('click', () => {
-  const text = `I beat "Not My Department" with ${state.deathsDisplayed} deaths 💼 Gerald made it to work.`;
+  const text = `I beat "Not My Department" with ${state.deathsDisplayed} deaths 💼 Gerald made it to work.\nhttps://gib30.github.io/not-my-department/`;
   navigator.clipboard.writeText(text).catch(() => {});
   alert('Copied to clipboard!');
 });
