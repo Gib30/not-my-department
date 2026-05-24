@@ -4,6 +4,7 @@ import { LEVEL_PLATFORMS, isPlatformCollidable, getZoneForX, PlatformType } from
 import { buildPlatformMeshes, syncPlatformVisibility, buildDoorMesh } from './renderer.js';
 import { createGameState, onDeath, onRespawn, onWin, onPause, onResume, GameStatus } from './state.js';
 import { applyGravity, applyMovement, createJumpVelocity, resolvePlatformCollision, MOVE_SPEED, PLAYER_SIZE } from './physics.js';
+import { createCameraController } from './camera.js';
 
 // ── Scene ──
 const canvas = document.getElementById('game');
@@ -34,6 +35,7 @@ window.addEventListener('resize', () => {
 const gerald = createGerald(scene);
 const meshMap = buildPlatformMeshes(LEVEL_PLATFORMS, scene);
 buildDoorMesh(scene);
+const camController = createCameraController(camera);
 
 // Working copies of platforms — reset on each death
 let platforms = LEVEL_PLATFORMS.map(p => ({ ...p }));
@@ -111,6 +113,7 @@ function triggerDeath() {
     onGround = false;
     lastZone = 1;
     fakeBannerTriggered = false;
+    camController.reset();
     gerald.resetPose();
     state = onRespawn(state);
     document.getElementById('zone-label').textContent = '';
@@ -235,9 +238,10 @@ function update() {
 function animate() {
   requestAnimationFrame(animate);
   update();
-  // Basic camera follow (zone-specific camera tricks added in Task 7)
-  camera.position.x += (pos.x - camera.position.x) * 0.08;
-  camera.lookAt(pos.x, 1.5, 0);
+  // Zone camera activations (zone-specific tricks)
+  if (lastZone === 2) camController.activateZone2();
+  if (lastZone === 4) camController.activateZone4();
+  camController.update(pos.x);
   renderer.render(scene, camera);
 }
 animate();
