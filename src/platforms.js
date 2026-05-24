@@ -25,6 +25,10 @@ function spike(x, y, id) {
   return { id, x, y, w: 0.6, h: 0.4, type: PlatformType.SPIKE, touched: false, zone: 4 };
 }
 
+// LEVEL_PLATFORMS is a read-only template — never mutate it directly.
+// The game loop creates fresh mutable copies each attempt:
+//   platforms = LEVEL_PLATFORMS.map(p => ({ ...p }))
+// The `touched` field on each copy is owned by the game loop, not this module.
 export const LEVEL_PLATFORMS = [
   // ── Zone 1: Tutorial Lie (x: 0–25) ──
   p(0,   0, PlatformType.SOLID, { id: 'z1_0',    zone: 1 }),
@@ -121,7 +125,7 @@ export function isPlatformVisible(platform, attemptsReal) {
 export function getZoneForX(x) {
   if (x < 28)  return 1;
   if (x < 68)  return 2;
-  if (x < 153) return 3;
-  if (x < 200) return 4;
+  if (x < 155) return 3;
+  if (x < 202) return 4;
   return 5;
 }

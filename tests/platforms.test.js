@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { PlatformType, isPlatformCollidable, isPlatformVisible, LEVEL_PLATFORMS } from '../src/platforms.js';
+import { PlatformType, isPlatformCollidable, isPlatformVisible, LEVEL_PLATFORMS, getZoneForX } from '../src/platforms.js';
 
 describe('isPlatformCollidable', () => {
   it('SOLID platform is always collidable', () => {
@@ -59,5 +59,20 @@ describe('LEVEL_PLATFORMS', () => {
       assert.ok('h' in p, `platform missing h`);
       assert.ok('type' in p, `platform missing type`);
     }
+  });
+});
+
+describe('getZoneForX', () => {
+  it('returns correct zone for each region', () => {
+    assert.equal(getZoneForX(0), 1);
+    assert.equal(getZoneForX(27), 1);
+    assert.equal(getZoneForX(28), 2);
+    assert.equal(getZoneForX(67), 2);
+    assert.equal(getZoneForX(68), 3);
+    assert.equal(getZoneForX(154), 3);
+    assert.equal(getZoneForX(155), 4);
+    assert.equal(getZoneForX(201), 4);
+    assert.equal(getZoneForX(202), 5);
+    assert.equal(getZoneForX(300), 5);
   });
 });
