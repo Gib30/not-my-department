@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { createGerald } from './gerald.js';
 
 const canvas = document.getElementById('game');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
@@ -19,6 +20,10 @@ scene.add(ambient);
 const sun = new THREE.DirectionalLight(0xffffff, 1.0);
 sun.position.set(10, 20, 10);
 scene.add(sun);
+
+// Gerald
+const gerald = createGerald(scene);
+gerald.group.position.set(0, 0.5, 0);
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
