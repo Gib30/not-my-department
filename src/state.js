@@ -1,9 +1,9 @@
-export const GameStatus = {
+export const GameStatus = Object.freeze({
   PLAYING: 'PLAYING',
   DEAD: 'DEAD',
   WIN: 'WIN',
   PAUSED: 'PAUSED',
-};
+});
 
 export function createGameState() {
   return {
@@ -27,6 +27,7 @@ export function onDeath(state) {
 }
 
 export function onRespawn(state) {
+  if (state.status !== GameStatus.DEAD) return state;
   return { ...state, status: GameStatus.PLAYING };
 }
 
