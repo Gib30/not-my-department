@@ -25,12 +25,14 @@ export function aabbOverlap(a, b) {
   );
 }
 
+// Coordinate convention: x is center-X for both player and platform,
+// y is bottom-Y (floor level). Platform AABB = (x - w/2, y) to (x + w/2, y + h).
 // Resolves landing on top of a platform. Only resolves downward collisions.
 export function resolvePlatformCollision(pos, vel, size, platform) {
   const playerBox = { x: pos.x - size.w / 2, y: pos.y, w: size.w, h: size.h };
   const platBox = { x: platform.x - platform.w / 2, y: platform.y, w: platform.w, h: platform.h };
 
-  if (!aabbOverlap(playerBox, platBox)) return { pos, vel, landed: false };
+  if (!aabbOverlap(playerBox, platBox)) return { pos: { x: pos.x, y: pos.y }, vel: { x: vel.x, y: vel.y }, landed: false };
 
   // Only resolve if falling (vel.y <= 0) and feet were near or above platform top
   const platTop = platform.y + platform.h;
@@ -41,5 +43,5 @@ export function resolvePlatformCollision(pos, vel, size, platform) {
       landed: true,
     };
   }
-  return { pos, vel, landed: false };
+  return { pos: { x: pos.x, y: pos.y }, vel: { x: vel.x, y: vel.y }, landed: false };
 }
