@@ -23,7 +23,7 @@ export function createCameraController(camera) {
     },
 
     activateZone4() {
-      if (!zone4Active) { zone4Active = true; }
+      if (!zone4Active) { zone4Active = true; zone4Timer = 0; }
     },
 
     // Call once per frame with geraldX. Updates camera position.
